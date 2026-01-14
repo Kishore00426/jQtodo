@@ -20,13 +20,20 @@ $(document).ready(function () {
         data: 'desc',
         render: (data) => `<span class="truncate">${data || ''}</span>`
       },
-      { data: 'status' },
+      {
+        data: 'status',
+        render: (data) => {
+          const statusClass = data === 'completed' ? 'bg-success' : 'bg-warning';
+          // Using Bootstrap's badge classes for ease, or custom ones
+          return `<span class="badge ${statusClass} rounded-pill text-capitalize">${data}</span>`;
+        }
+      },
       {
         data: null,
         render: () => `
-          <i data-index="' + index + '" class="fas fa-eye action-btn viewBtn" style="cursor:pointer; margin-right:5px;" title="View Task"></i>
-          <i data-index="' + index + '" class="fas fa-edit action-btn editBtn" style="cursor:pointer; margin-right:5px;" title="Edit Task"></i>
-          <i data-index="' + index + '" class="fas fa-trash action-btn deleteBtn" style="cursor:pointer;" title="Delete Task"></i>
+          <i data-index="' + index + '" class="fas fa-eye action-btn viewBtn" title="View Task"></i>
+          <i data-index="' + index + '" class="fas fa-edit action-btn editBtn" title="Edit Task"></i>
+          <i data-index="' + index + '" class="fas fa-trash action-btn deleteBtn" title="Delete Task"></i>
         `,
         orderable: false
       }
